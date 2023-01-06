@@ -11,6 +11,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+builder.Services.AddServerSideBlazor();
+
 var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
@@ -20,6 +22,8 @@ app.UseRouting();
 app.MapControllerRoute("controllers", "controllers/{controller=Home}/{action=Index}/{id?}");
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+
+app.MapBlazorHub();
 
 SeedData.SeedDatabase(app);
 

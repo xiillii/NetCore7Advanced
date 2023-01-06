@@ -11,7 +11,7 @@
         <th>Location</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
     @foreach (var p in Model.People)
     {
         <tr class="@Model.GetClass(p.Location.City)">
@@ -25,9 +25,9 @@
 </table>
 
 <form asp-action="Index" method="get">
-    <div class="form-group">
-        <label for="selectedCity">City</label>
-        <select name="selectedCity" class="form-control">
+    <div class="mb-3">
+        <label for="selectedCity" class="form-label">City</label>
+        <select name="selectedCity" id="selectedCity" class="form-select">
             <option disabled selected>Select City</option>
             @foreach (var city in Model.Cities)
             {

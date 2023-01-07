@@ -43,7 +43,7 @@
     
     public string HighlightSelection { get; set; }
 
-    public string IsHighlighted(RowType item) => Highlight(item) == HighlightSelection ? "bg-dark text-white" : "";
+    public string IsHighlighted(RowType item) => Highlight(item) == HighlightSelection ? "table-dark" : "";
 
     [Parameter]
     public Func<RowType, string> SortDirection { get; set; }

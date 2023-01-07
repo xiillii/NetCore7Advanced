@@ -1,6 +1,8 @@
-﻿<div class="mt-2">
+﻿@using System.Globalization
+
+<div class="mt-2">
     <label class="form-label">City</label>
-    <input class="form-control" @bind="City"/>
+    <input class="form-control" @bind-value="City" @bind-value:event="oninput"/>
     @*<input class="form-control" value="@City" @onchange="UpdateCity"/>*@
 </div>
 <div class="p-2 mb-2">City Value: @City</div>
@@ -8,9 +10,33 @@
 <button class="btn btn-primary" @onclick="@(() => City = "Paris")">Paris</button>
 <button class="btn btn-primary" @onclick="@(() => City = "Chicago")">Chicago</button>
 
+<hr/>
+
+<div class="mt-2">
+    <label>Time:</label>
+    <input class="form-control my-1" @bind="Time" @bind:culture="Culture" @bind:format="MMM-dd"/>
+    <input class="form-control my-1" @bind="Time" @bind:culture="Culture" />
+    <input class="form-control my-1" type="date" @bind="Time" />
+</div>
+<div class="p-2 mb-2">Time Value @Time</div>
+
+<div class="mt-2">
+    <label>Culture:</label>
+    <select class="form-select" @bind="Culture">
+        <option value="@CultureInfo.GetCultureInfo("en-us")">en-US</option>
+        <option value="@CultureInfo.GetCultureInfo("en-gb")">en-GB</option>
+        <option value="@CultureInfo.GetCultureInfo("fr-fr")">fr-FR</option>
+        <option value="@CultureInfo.GetCultureInfo("es-mx")">es-MX</option>
+    </select>
+</div>
+
 @code
 {
     public string? City { get; set; } = "London";
+
+    public DateTime Time { get; set; } = DateTime.Parse("2023/01/03 10:23");
+
+    public CultureInfo Culture { get; set; } = CultureInfo.GetCultureInfo("en-us");
 
     //public void UpdateCity(ChangeEventArgs e) => City = e.Value as string;
 }

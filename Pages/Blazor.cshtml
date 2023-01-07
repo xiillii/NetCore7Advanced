@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
 <h4 class="bg-primary text-white text-center p-2">Blazor People</h4>
 
 <button id="markElems" class="btn btn-outline-primary mb-2">Mark Elements</button>
@@ -27,3 +28,16 @@ window.addEventListener("DOMContentLoaded", () => {
 <hr/>
 
 <component type="typeof(NetCore7Advanced.Blazor.Bindings)" render-mode="Server"/>
+
+<hr/>
+
+<h4 class="bg-primary text-white text-center p-2">Code-behind</h4>
+
+<component type="typeof(NetCore7Advanced.Blazor.Split)" render-mode="Server"/>
+
+
+<hr />
+
+<h4 class="bg-primary text-white text-center p-2">Pure Code</h4>
+
+<component type="typeof(NetCore7Advanced.Blazor.CodeOnly)" render-mode="Server" />

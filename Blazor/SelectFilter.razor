@@ -1,0 +1,33 @@
+﻿<div class="mt-2">
+    <label for="select-@Title">@Title</label>
+    <select name="select-@Title" class="form-select" @onchange="HandleSelect" value="@SelectedValue">
+        <option disabled selected>Select @Title</option>
+        @foreach (var val in Values)
+        {
+            <option value="@val" selected="@(val == SelectedValue)">@val</option>
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<string> Values { get; set; } = Enumerable.Empty<string>();
+
+    public string SelectedValue { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = "Placeholder";
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> Attrs { get; set; }
+
+    [Parameter]
+    public EventCallback<string> CustomEvent { get; set; }
+
+    public async Task HandleSelect(ChangeEventArgs e)
+    {
+        SelectedValue = e.Value as string;
+
+        await CustomEvent.InvokeAsync(SelectedValue);
+    }
+}

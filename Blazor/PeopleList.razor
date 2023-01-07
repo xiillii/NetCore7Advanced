@@ -23,37 +23,24 @@
     </tbody>
 </table>
 
-
-<div class="mb-3">
-    <label for="city">City</label>
-    <select id="city" class="form-select" @onchange="SelectedCityChanged">
-        <option disabled selected>Select City</option>
-        @foreach (var city in Cities)
-        {
-            <option value="@city" selected="@(city == SelectedCity)">
-                @city
-            </option>
-        }
-    </select>
-</div>
-
+<SelectFilter Values="@Cities" Title="City" CustomEvent="@HandleCustom"></SelectFilter>
 
 @code {
     [Inject]
     public DataContext Context { get; set; }
 
-    public IEnumerable<Person> People => Context.People.Include(p => p.Department).Include(p => p.Location);
+    public IEnumerable<Person> People => Context.People.Include(p => p.Department).Include(p => p.Location).Take(ItemCount);
     public IEnumerable<string> Cities => Context.Locations.Select(l => l.City);
 
     public string? SelectedCity { get; set; } 
 
     public string GetClass(string city) => SelectedCity == city ? "bg-info text-white" : "";
 
-    private void SelectedCityChanged(ChangeEventArgs e)
-    {
-        if (e.Value is not null)
-        {
-            SelectedCity = (string)e.Value;
-        }
-    }
+    [Parameter]
+    public int ItemCount { get; set; }
+
+    [Parameter]
+    public string SelectTitle { get; set; }
+
+    public void HandleCustom(string newValue) => SelectedCity = newValue;
 }

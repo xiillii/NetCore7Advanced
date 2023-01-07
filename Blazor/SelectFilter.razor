@@ -1,4 +1,4 @@
-﻿<div class="mt-2">
+﻿<div class="mt-2 mb-2">
     <label for="select-@Title">@Title</label>
     <select name="select-@Title" class="form-select" @onchange="HandleSelect" value="@SelectedValue">
         <option disabled selected>Select @Title</option>
@@ -13,6 +13,7 @@
     [Parameter]
     public IEnumerable<string> Values { get; set; } = Enumerable.Empty<string>();
 
+    [Parameter]
     public string SelectedValue { get; set; }
 
     [Parameter]
@@ -22,12 +23,12 @@
     public Dictionary<string, object> Attrs { get; set; }
 
     [Parameter]
-    public EventCallback<string> CustomEvent { get; set; }
+    public EventCallback<string> SelectedValueChanged { get; set; }
 
     public async Task HandleSelect(ChangeEventArgs e)
     {
         SelectedValue = e.Value as string;
 
-        await CustomEvent.InvokeAsync(SelectedValue);
+        await SelectedValueChanged.InvokeAsync(SelectedValue);
     }
 }

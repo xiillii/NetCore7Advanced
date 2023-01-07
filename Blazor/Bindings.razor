@@ -1,0 +1,16 @@
+﻿<div class="mt-2">
+    <label class="form-label">City</label>
+    <input class="form-control" @bind="City"/>
+    @*<input class="form-control" value="@City" @onchange="UpdateCity"/>*@
+</div>
+<div class="p-2 mb-2">City Value: @City</div>
+
+<button class="btn btn-primary" @onclick="@(() => City = "Paris")">Paris</button>
+<button class="btn btn-primary" @onclick="@(() => City = "Chicago")">Chicago</button>
+
+@code
+{
+    public string? City { get; set; } = "London";
+
+    //public void UpdateCity(ChangeEventArgs e) => City = e.Value as string;
+}

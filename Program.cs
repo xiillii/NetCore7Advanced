@@ -25,6 +25,8 @@ app.MapRazorPages();
 
 app.MapBlazorHub();
 
+app.MapFallbackToPage("/_Host");
+
 SeedData.SeedDatabase(app);
 
 app.Run();

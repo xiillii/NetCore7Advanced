@@ -1,4 +1,7 @@
-﻿<TableTemplate RowType="Person" RowData="People" Highlight="@(p => p.Location.City)" SortDirection="@(p => p.Surname)">
+﻿@page "/"
+@page "/people"
+
+<TableTemplate RowType="Person" RowData="People" Highlight="@(p => p.Location.City)" SortDirection="@(p => p.Surname)">
     <Header>
         <tr>
             <th>ID</th>
@@ -16,6 +19,8 @@
          
     </RowTemplate>
 </TableTemplate>
+
+<NavLink class="btn btn-primary" href="/depts">Departments</NavLink>
 
 
 @code {

@@ -68,4 +68,13 @@ window.addEventListener("DOMContentLoaded", () => {
     </div>
 </div>
 
+<div id="blazor-error-ui"
+     class="text-center bg-danger h6 text-white p-2 fixed-top w-100"
+     style="display: none">
+    An error has occurred. This application will not respond until reloaded.
+    <button class="btn btn-sm btn-primary" onclick="location.reload()">
+        Reload
+    </button>
+</div>
+
 <component type="typeof(NetCore7Advanced.Blazor.DepartmentList)" render-mode="Server" />

@@ -18,6 +18,9 @@
 
 <SelectFilter Title="@("Theme")" Values="Themes" @bind-SelectedValue="Theme"></SelectFilter>
 
+<button class="btn btn-danger" onclick="@(new Func<object>(() => throw new Exception()))">
+    Generate Error
+</button>
 
 @code {
     [Inject]

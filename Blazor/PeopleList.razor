@@ -1,4 +1,4 @@
-﻿<TableTemplate RowType="Person" RowData="People">
+﻿<TableTemplate RowType="Person" RowData="People" Highlight="@(p => p.Location.City)" SortDirection="@(p => p.Surname)">
     <Header>
         <tr>
             <th>ID</th>

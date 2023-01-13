@@ -45,7 +45,7 @@
         if (firstRender)
         {
             Toggler.EnrolComponents(Refs.Values);
-            await JsRuntime.InvokeVoidAsync("createToggleButton");
+            await JsRuntime.InvokeVoidAsync("createToggleButton", DotNetObjectReference.Create(Toggler));
         }
     }
 

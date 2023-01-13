@@ -1,0 +1,52 @@
+﻿<a class="@ComputedClass" @onclick="HandleClick" href="">
+    @ChildContent
+</a>
+
+@code {
+    [Inject]
+    public NavigationManager NavManager { get; set; }
+
+    [Parameter]
+    public IEnumerable<string> Href { get; set; }
+
+    [Parameter]
+    public string Class { get; set; }
+
+    [Parameter]
+    public string ActiveClass { get; set; }
+
+    [Parameter]
+    public NavLinkMatch? Match { get; set; }
+
+    public NavLinkMatch ComputedMatch => Match ?? (Href.Count() == 1 ? NavLinkMatch.Prefix : NavLinkMatch.All);
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public string ComputedClass { get; set; }
+
+    public void HandleClick()
+    {
+        NavManager.NavigateTo(Href.First());
+    }
+
+    private void CheckMatch(string currentUrl)
+    {
+        var path = NavManager.ToBaseRelativePath(currentUrl);
+
+        path = path.EndsWith("/") ? path.Substring(0, path.Length - 1) : path;
+
+        var match = Href.Any(href => ComputedMatch == NavLinkMatch.All ? path == href : path.StartsWith(href));
+
+        ComputedClass = match ? $"{Class} {ActiveClass}" : Class;
+    }
+
+    protected override void OnParametersSet()
+    {
+        ComputedClass = Class;
+        NavManager.LocationChanged += (sender, arg) => CheckMatch(arg.Location);
+        Href = Href.Select(h => h.StartsWith("/") ? h.Substring(1) : h);
+        CheckMatch(NavManager.Uri);
+    }
+
+}

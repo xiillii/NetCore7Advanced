@@ -5,12 +5,12 @@
         <div class="col-3 gap-2">
             @foreach (var key in NavLinks.Keys)
             {
-                <NavLink class="btn btn-outline-primary"
+                <MultiNavLink class="btn btn-outline-primary"
                          href="@NavLinks[key]"
                          ActiveClass="btn-primary text-white"
-                         Match="NavLinkMatch.Prefix">
+                         >
                     @key
-                </NavLink>
+                </MultiNavLink>
             }
         </div>
         <div class="col">
@@ -21,11 +21,11 @@
 
 @code {
 
-    public Dictionary<string, string> NavLinks = new Dictionary<string, string>
+    public Dictionary<string, string[]> NavLinks = new()
     {
-        { "People", "/people" },
-        { "Departments", "/depts" },
-        { "Details", "/person" }
+        { "People", new[] { "/people", "/" } },
+        { "Departments", new[] { "/depts", "/departments" } },
+        { "Details", new[] { "/person" } }
     };
 
 }

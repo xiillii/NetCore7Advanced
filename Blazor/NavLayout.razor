@@ -1,5 +1,6 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @inherits LayoutComponentBase
+@using Advanced.Services;
 
 <div class="container-fluid">
     <div class="row">
@@ -24,6 +25,8 @@
 </div>
 
 @code {
+    [Inject]
+    public ToggleService Toggler { get; set; }
 
     public Dictionary<string, string[]> NavLinks = new()
     {
@@ -34,14 +37,14 @@
 
     public Dictionary<string, MultiNavLink> Refs = new Dictionary<string, MultiNavLink>();
 
-    private bool LinksEnabled = true;
-
-    public void ToggleLinks()
+    protected override void OnAfterRender(bool firstRender)
     {
-        LinksEnabled = !LinksEnabled;
-        foreach (var link in Refs.Values)
+        if (firstRender)
         {
-            link.SetEnabled(LinksEnabled);
+            Toggler.EnrolComponents(Refs.Values);
         }
     }
+
+    public void ToggleLinks() => Toggler.ToggleComponents();
+
 }

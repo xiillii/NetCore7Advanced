@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NetCore7Advanced.Advanced.Services;
 using NetCore7Advanced.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,8 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddSingleton<ToggleService>();
 
 var app = builder.Build();
 

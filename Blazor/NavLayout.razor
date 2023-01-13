@@ -1,0 +1,31 @@
+﻿@inherits LayoutComponentBase
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 gap-2">
+            @foreach (var key in NavLinks.Keys)
+            {
+                <NavLink class="btn btn-outline-primary"
+                         href="@NavLinks[key]"
+                         ActiveClass="btn-primary text-white"
+                         Match="NavLinkMatch.Prefix">
+                    @key
+                </NavLink>
+            }
+        </div>
+        <div class="col">
+            @Body
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public Dictionary<string, string> NavLinks = new Dictionary<string, string>
+    {
+        { "People", "/people" },
+        { "Departments", "/depts" },
+        { "Details", "/person" }
+    };
+
+}

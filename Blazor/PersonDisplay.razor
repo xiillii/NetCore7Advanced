@@ -18,8 +18,7 @@ else
     </table>
 }
 
-<button class="btn btn-outline-primary" @onclick="@(() => HandleClick(false))">Previous</button>
-<button class="btn btn-outline-primary" @onclick="@(() => HandleClick(true))">Next</button>
+<button class="btn btn-outline-primary" @onclick="@HandleClick">Invoke JS Function</button>
 
 @code {
     [Inject]
@@ -28,6 +27,9 @@ else
     [Inject]
     public NavigationManager NavManager { get; set; }
 
+    [Inject]
+    public IJSRuntime JsRuntime { get; set; }
+
     [Parameter]
     public long Id { get; set; }
 
@@ -35,14 +37,13 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        await Task.Delay(1000);
+        //await Task.Delay(1000);
         Person = await Context.People.FirstOrDefaultAsync(p => p.PersonId == Id) ?? new Person();
     }
 
-    public void HandleClick(bool increment)
+    public async Task HandleClick()
     {
-        Person = null;
-        NavManager.NavigateTo($"/person/{(increment ? Id + 1 : Id - 1)}");
+        await JsRuntime.InvokeVoidAsync("addTableRows", 2);
     }
 
 }

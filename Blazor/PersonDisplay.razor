@@ -1,0 +1,11 @@
+﻿@page "/person"
+@page "/person/{id:long}"
+
+<h5>Editor for Person: @Id </h5>
+
+<NavLink class="btn btn-primary" href="/People">Return</NavLink>
+
+@code {
+    [Parameter]
+    public long Id { get; set; }
+}

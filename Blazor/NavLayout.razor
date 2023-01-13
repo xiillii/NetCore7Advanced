@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@inherits LayoutComponentBase
 
 <div class="container-fluid">
     <div class="row">
@@ -8,10 +9,13 @@
                 <MultiNavLink class="btn btn-outline-primary"
                          href="@NavLinks[key]"
                          ActiveClass="btn-primary text-white"
+                         DisabledClasses="btn btn-dark text-light disabled"
+                         @ref="Refs[key]"
                          >
                     @key
                 </MultiNavLink>
             }
+            <button class="btn btn-secondary mt-5" @onclick="ToggleLinks">Toggle Links</button>
         </div>
         <div class="col">
             @Body
@@ -28,4 +32,16 @@
         { "Details", new[] { "/person" } }
     };
 
+    public Dictionary<string, MultiNavLink> Refs = new Dictionary<string, MultiNavLink>();
+
+    private bool LinksEnabled = true;
+
+    public void ToggleLinks()
+    {
+        LinksEnabled = !LinksEnabled;
+        foreach (var link in Refs.Values)
+        {
+            link.SetEnabled(LinksEnabled);
+        }
+    }
 }
